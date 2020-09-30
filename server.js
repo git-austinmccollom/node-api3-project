@@ -7,7 +7,7 @@ const server = express();
 //custom middleware
 
 const logger = morgan("combined");
-// function logger(req, res, next) {
+// function validateUserId(req, res, next) {
 
 // }
 
