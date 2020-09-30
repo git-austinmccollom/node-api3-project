@@ -22,13 +22,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  userDbFunctions.getById(req.params.id)
-  .then( user => {
-    res.status(200).json(user)
-  })
-  .catch( err => {
-    res.status(404).json({ message: "user not found" })
-  })
+  req.user ? res.status(200).json(req.user) : res.status(404).json({ message: "user not found" });
 });
 
 router.get('/:id/posts', (req, res) => {
