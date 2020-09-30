@@ -1,14 +1,26 @@
-const express = require('express');
-const userRouter = require('./users/userRouter')
+const express = require("express");
+const morgan = require("morgan");
+const userRouter = require("./users/userRouter");
 
 const server = express();
-server.use(express.json());
-server.use('/api/users', userRouter)
+
 //custom middleware
 
-// function logger(req, res, next) {}
+const logger = morgan("combined");
+// function logger(req, res, next) {
 
-server.get('/', (req, res) => {
+// }
+
+//base enpoint for checking if server is live
+server.get("/", (req, res) => {
   res.send(`<h2>Let's write some middleware!</h2>`);
 });
+
+//activate middleware
+server.use(express.json());
+server.use(logger);
+
+//routers to endpoints
+server.use("/api/users", userRouter);
+
 module.exports = server;

@@ -1,16 +1,7 @@
 const express = require('express');
 const userDbFunctions = require('./userDb');
-// import * as dbFunctions from './userDb';
-// import {
-  //   get,
-  //   getById,
-  //   getUserPosts,
-  //   insert,
-  //   update,
-  //   remove,
-  // } from './userDb';
-  
-  const router = express.Router();
+
+const router = express.Router();
   
 router.post('/', (req, res) => {
   // do your magic!
