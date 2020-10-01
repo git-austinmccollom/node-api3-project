@@ -4,7 +4,8 @@ const userDbFunctions = require('./userDb');
 const router = express.Router();
   
 router.post('/', (req, res) => {
-  // do your magic!
+  userDbFunctions.insert(req.body)
+  .then( )
 });
 
 router.post('/:id/posts', (req, res) => {
@@ -21,7 +22,7 @@ router.get('/', (req, res) => {
   })
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validateUserId, (req, res) => {
   req.user ? res.status(200).json(req.user) : res.status(404).json({ message: "user not found" });
 });
 
@@ -40,7 +41,17 @@ router.put('/:id', (req, res) => {
 //custom middleware
 
 function validateUserId(req, res, next) {
-  // do your magic!
+  userDbFunctions
+    .getById(req.params.id)
+    .then((user) => {
+      req.user = user
+      next();
+    })
+    .catch((err) => {
+      console.log(err)
+      // res.status(404).json({ message: "user not found" });
+      res.send("404 not found");
+    });
 }
 
 function validateUser(req, res, next) {
