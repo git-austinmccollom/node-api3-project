@@ -4,8 +4,16 @@ const userDbFunctions = require('./userDb');
 const router = express.Router();
   
 router.post('/', (req, res) => {
+  // userDbFunctions.insert({ name: "austin" })
+  console.log(req.body)
   userDbFunctions.insert(req.body)
-  .then( )
+  .then( postRes => {
+    res.status(201).json(postRes);
+  })
+  .catch( postErr => {
+    // res.status(500).json({ message: "server failed to save user" })
+    res.status(500).json({postErr})
+  })
 });
 
 router.post('/:id/posts', (req, res) => {
