@@ -1,6 +1,7 @@
 const express = require("express");
 const userDb = require("./userDb");
 const userDbFunctions = require("./userDb");
+const postDbFunctions = require("../posts/postDb");
 
 const router = express.Router();
 
@@ -13,13 +14,18 @@ router.post("/", validateUser, (req, res) => {
       res.status(201).json(postRes);
     })
     .catch((postErr) => {
-      // res.status(500).json({ message: "server failed to save user" })
       res.status(500).json({ postErr });
     });
 });
 
 router.post("/:id/posts", (req, res) => {
-  // do your magic!
+  postDbFunctions.insert(req.body)
+  .then((postRes) => {
+    res.status(201).json(postRes);
+  })
+  .catch((postErr) => {
+    res.status(500).json({ postErr });
+  });
 });
 
 router.get("/", (req, res) => {
