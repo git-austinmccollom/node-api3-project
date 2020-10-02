@@ -1,4 +1,5 @@
 const express = require("express");
+const userDb = require("./userDb");
 const userDbFunctions = require("./userDb");
 
 const router = express.Router();
@@ -39,7 +40,14 @@ router.get("/:id", validateUserId, (req, res) => {
 });
 
 router.get("/:id/posts", (req, res) => {
-  // do your magic!
+  const id = req.params.id;
+  userDbFunctions.getUserPosts(id)
+  .then( getRes => {
+    res.status(200).json(getRes)
+  })
+  .catch( getErr => {
+    res.status(500).json(getErr)
+  })
 });
 
 router.delete("/:id", (req, res) => {
