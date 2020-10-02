@@ -61,7 +61,13 @@ router.delete("/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  // do your magic!
+  userDbFunctions.update(req.params.id, req.body)
+  .then( updateRes => {
+    res.status(200).json(updateRes)
+  })
+  .catch( updateErr => {
+    res.status(500).json(updateErr)
+  })
 });
 
 //custom middleware
