@@ -51,7 +51,13 @@ router.get("/:id/posts", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-  // do your magic!
+  userDbFunctions.remove(req.params.id)
+  .then( deleteRes => {
+    res.status(200).json(deleteRes)
+  })
+  .catch( deleteErr => {
+    res.status(500).json(deleteErr)
+  })
 });
 
 router.put("/:id", (req, res) => {
